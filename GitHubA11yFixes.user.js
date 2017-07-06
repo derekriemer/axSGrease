@@ -27,7 +27,7 @@ function setAriaIdIfNecessary(elem) {
 
 function makeElementOwn(parentElement, listOfNodes){
 	ids = [];
-	for(let node of listOfNodes){
+for(let node of listOfNodes){
 		ids.push(setAriaIdIfNecessary(node));
 	}
 	parentElement.setAttribute("aria-owns", ids.join(" "));
@@ -181,7 +181,7 @@ function onNodeAdded(target) {
 			// elem is the Add line comment button.
 			// nextElementSibling is the actual code.
 			// Reorder children using aria-owns.
-			makeElementOwn(elem.parentNode, [elem, elem.nextElementSibling]);
+			makeElementOwn(elem.parentNode, [elem.nextElementSibling, elem]);
 		}
 		// Make sure diff tables never get treated as a layout table.
 		for (elem of target.querySelectorAll(".diff-table"))
