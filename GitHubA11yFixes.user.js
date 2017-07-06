@@ -21,7 +21,6 @@ function setAriaIdIfNecessary(elem) {
 	if (elem.id) {
 		return elem.id;
 	}
-	console.log(elem);
 	elem.setAttribute("id", "axsg-" + idCounter++);
 	return elem.id;
 }
