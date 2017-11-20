@@ -40,8 +40,11 @@ function onSelectMenuItemChanged(target) {
 function onDropdownChanged(target) {
 	target.firstElementChild.setAttribute("aria-haspopup", "true");
 	var expanded = target.classList.contains("active");
-	target.children[0].setAttribute("aria-expanded",  expanded ? "true" : "false");
+	target.firstElementChild.setAttribute("aria-expanded",  expanded ? "true" : "false");
 	var items = target.children[1];
+	if (!items) {
+		return;
+	}
 	if (expanded) {
 		items.removeAttribute("aria-hidden");
 		// Focus the first item.
@@ -59,9 +62,14 @@ function doGlobal(target){
 	var elem;
 	// Site-wide stuff.
 	// Checkable menu items; e.g. in watch and labels pop-ups.
-	for (elem of target.querySelectorAll(".select-menu-item")) {
-		elem.setAttribute("role", "menuitemcheckbox");
-		onSelectMenuItemChanged(elem);
+	if (target.classList.contains("select-menu-item")) {
+		target.setAttribute("role", "menuitemcheckbox");
+		onSelectMenuItemChanged(target);
+	} else {
+		for (elem of target.querySelectorAll(".select-menu-item")) {
+			elem.setAttribute("role", "menuitemcheckbox");
+			onSelectMenuItemChanged(elem);
+		}
 	}
 	// Table lists; e.g. in issue and commit listings.
 	for (elem of target.querySelectorAll(".table-list,.Box-body,ul.js-navigation-container"))
